@@ -23,26 +23,6 @@ export default function PlaylistDetails({
     fetchPlaylist();
   }, [currentPlaylistId]);
 
-  // function handleDelete(trackId) {
-  //   console.log("deleting" + trackId);
-  //   axios
-  //     .delete(
-  //       `https://api.spotify.com/v1/playlists/${currentPlaylistId}/tracks}`,
-  //       { tracks: [{ uri: trackId }] },
-  //       {
-  //         headers: {
-  //           "Content-Type": "application/json",
-  //           Authorization: "Bearer " + accessToken,
-  //         },
-  //       }
-  //     )
-  //     .then((res) => {
-  //       console.log(res.data);
-  //       fetchPlaylist();
-  //     })
-  //     .catch((err) => console.log(err));
-  // }
-
   return (
     <div className="p-6 bg-gray-100">
       <div className="md:container md:mx-auto md:flex md:items-start gap-8">

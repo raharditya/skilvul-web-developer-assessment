@@ -2,6 +2,7 @@ import React from "react";
 import { ReactComponent as Delete } from "../assets/delete.svg";
 import Skeleton from "react-loading-skeleton";
 import months from "../months";
+import Popup from "reactjs-popup";
 
 export default function DetailItem({
   index,
@@ -55,12 +56,40 @@ export default function DetailItem({
 
       <div className="w-1/12 ">
         {artists ? (
-          <button
-            className="h-10 w-10 flex items-center justify-center p-1 rounded-2xl bg-red-500"
-            onClick={() => handleDelete(uri)}
+          <Popup
+            trigger={(open) => (
+              <button className="h-10 w-10 flex items-center justify-center p-1 rounded-2xl bg-red-500">
+                <Delete />
+              </button>
+            )}
+            modal={true}
+            position="left center"
+            contentStyle={{ width: "auto", borderRadius: "1.5rem" }}
+            closeOnDocumentClick
           >
-            <Delete />
-          </button>
+            {(close) => (
+              <div className="flex flex-col py-4 px-6 items-center justify-center">
+                <h3>Delete this song?</h3>
+                <div className="flex items-center gap-4 mt-6">
+                  <button
+                    className="py-2 px-6 rounded-xl border-2 border-gray-400"
+                    onClick={close}
+                  >
+                    Cancel
+                  </button>
+                  <button
+                    className="py-2 px-6 rounded-xl bg-red-500 font-semibold text-white"
+                    onClick={() => {
+                      handleDelete(uri);
+                      close();
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            )}
+          </Popup>
         ) : (
           <button
             className="h-10 w-10 flex items-center justify-center p-1 rounded-2xl bg-red-300 cursor-default"

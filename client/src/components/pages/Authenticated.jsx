@@ -3,12 +3,12 @@ import axios from "axios";
 import Home from "./Home";
 import PlaylistDetails from "./PlaylistDetails";
 import useAuth from "../../useAuth";
+import { toast } from "react-toastify";
 
 export default function Authenticated({ code }) {
   const [currentPage, setCurrentPage] = useState("home");
   const [currentPlaylistId, setCurrentPlaylistId] = useState("");
   const [playlistDetail, setPlaylistDetail] = useState({});
-  const [homePagination, setHomePagination] = useState(0);
 
   const accessToken = useAuth(code);
 
@@ -62,7 +62,6 @@ export default function Authenticated({ code }) {
   }
 
   function handleDelete(trackId) {
-    console.log("deleting" + trackId);
     axios
       .delete(
         `https://api.spotify.com/v1/playlists/${currentPlaylistId}/tracks`,
@@ -75,10 +74,17 @@ export default function Authenticated({ code }) {
         }
       )
       .then((res) => {
-        console.log(res.data);
         fetchPlaylist();
+        toast.success("Song deleted!");
       })
-      .catch((err) => console.log(err));
+      .catch((err) => {
+        console.log(err);
+        if (err.response.status === 403) {
+          toast.error("You don't have access to this playlist!");
+        } else {
+          toast.error("Something went wrong...");
+        }
+      });
   }
 
   return (
