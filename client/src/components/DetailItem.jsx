@@ -17,8 +17,13 @@ export default function DetailItem({
 }) {
   const dateAdded = new Date(added);
 
-  const min = Math.floor((duration / 1000 / 60) << 0);
-  const sec = Math.floor((duration / 1000) % 60);
+  let min;
+  let sec;
+
+  if (duration) {
+    min = Math.floor((duration / 1000 / 60) << 0);
+    sec = Math.floor((duration / 1000) % 60);
+  }
 
   return (
     <div className="flex items-center px-3 py-3 bg-white hover:bg-gray-200 rounded-2xl transition duration-150 ease-in-out">
@@ -28,12 +33,11 @@ export default function DetailItem({
           <img
             src={coverUrl}
             alt={album}
-            // style={{
-            //   height: coverWidth,
-            //   objectFit: "cover",
-            //   objectPosition: "center",
-            // }}
-            className="rounded-xl h-16 w-16"
+            style={{
+              objectFit: "cover",
+              objectPosition: "center",
+            }}
+            className="rounded-xl w-16 h-16 "
           />
         ) : (
           <Skeleton height={64} width={64} />
@@ -47,18 +51,24 @@ export default function DetailItem({
       </div>
 
       <div className="w-2/12">
-        {`${dateAdded.getDay()} ${
-          months[dateAdded.getMonth()]
-        } ${dateAdded.getFullYear()}` || <Skeleton width={70} />}
+        {added ? (
+          `${dateAdded.getDay()} ${
+            months[dateAdded.getMonth()]
+          } ${dateAdded.getFullYear()}`
+        ) : (
+          <Skeleton width={70} />
+        )}
       </div>
 
-      <div className="w-2/12">{`${min}:${sec}` || <Skeleton width={40} />}</div>
+      <div className="w-2/12">
+        {duration ? `${min}:${sec}` : <Skeleton width={40} />}
+      </div>
 
       <div className="w-1/12 ">
         {artists ? (
           <Popup
             trigger={(open) => (
-              <button className="h-10 w-10 flex items-center justify-center p-1 rounded-2xl bg-red-500">
+              <button className="h-10 w-10 flex items-center justify-center p-1 rounded-2xl bg-red-500 hover:bg-red-600 transition duration-150 ease-in-out">
                 <Delete />
               </button>
             )}
@@ -78,7 +88,7 @@ export default function DetailItem({
                     Cancel
                   </button>
                   <button
-                    className="py-2 px-6 rounded-xl bg-red-500 font-semibold text-white"
+                    className="py-2 px-6 rounded-xl bg-red-500 hover:bg-red-600 transition duration-150 ease-in-out font-semibold text-white"
                     onClick={() => {
                       handleDelete(uri);
                       close();

@@ -17,7 +17,7 @@ export default function PlaylistItem({
 
   return (
     <div
-      className="bg-white border rounded-2xl shadow-lg p-4 cursor-pointer"
+      className="bg-white hover:bg-gray-300 transition duration-150 ease-in-out border rounded-2xl shadow-lg hover:shadow-xl p-4 cursor-pointer"
       onClick={() => goToPlaylist(id)}
     >
       {imgUrl ? (

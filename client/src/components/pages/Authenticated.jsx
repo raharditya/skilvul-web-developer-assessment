@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 
 export default function Authenticated({ code }) {
   const [currentPage, setCurrentPage] = useState("home");
+  const [userInfo, setUserInfo] = useState({});
   const [currentPlaylistId, setCurrentPlaylistId] = useState("");
   const [playlistDetail, setPlaylistDetail] = useState({});
 
@@ -28,6 +29,21 @@ export default function Authenticated({ code }) {
       .then((res) => {
         console.log(res.data);
         setUserPlaylists(res.data.items);
+      })
+      .catch((err) => console.log(err));
+  }, [accessToken]);
+
+  useEffect(() => {
+    if (!accessToken) return;
+    axios
+      .get("https://api.spotify.com/v1/me/", {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+      })
+      .then((res) => {
+        setUserInfo(res.data);
       })
       .catch((err) => console.log(err));
   }, [accessToken]);
@@ -90,7 +106,11 @@ export default function Authenticated({ code }) {
   return (
     <div>
       {currentPage === "home" && (
-        <Home userPlaylists={userPlaylists} goToPlaylist={goToPlaylist} />
+        <Home
+          userPlaylists={userPlaylists}
+          goToPlaylist={goToPlaylist}
+          userInfo={userInfo}
+        />
       )}
       {currentPage === "details" && (
         <PlaylistDetails

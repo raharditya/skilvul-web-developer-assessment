@@ -26,7 +26,6 @@ export default function PlaylistDetails({
   return (
     <div className="p-6 bg-gray-100">
       <div className="md:container md:mx-auto md:flex md:items-start gap-8">
-        {/* {currentPlaylist.name && ( */}
         <>
           <aside className="w-2/6 sticky top-6">
             <div className="mb-6">
@@ -38,7 +37,7 @@ export default function PlaylistDetails({
               </div>
             </div>
 
-            <div className="p-4 bg-red-500 rounded-2xl h-auto ">
+            <div className="p-4 bg-green-500 rounded-2xl h-auto ">
               <div className="flex gap-4">
                 {currentPlaylist.images ? (
                   <img
@@ -83,11 +82,6 @@ export default function PlaylistDetails({
                   </p>
                 </div>
               </div>
-
-              <select name="" id="" className="border rounded-2xl py-2 px-4">
-                <option value="name">By name</option>
-                <option value="created">By creation</option>
-              </select>
             </div>
 
             <div className="">
