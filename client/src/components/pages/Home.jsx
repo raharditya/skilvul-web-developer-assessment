@@ -1,7 +1,12 @@
 import React from "react";
 import profile from "../../assets/profile.jpg";
+import useAuth from "../../useAuth";
 
-export default function Home() {
+export default function Home({ code }) {
+  const accessToken = useAuth(code);
+
+  console.log(accessToken);
+
   return (
     <div className="md:container md:mx-auto px-6">
       <h1 className="py-6 text-xl font-semibold">Spotify Playlist Manager</h1>
