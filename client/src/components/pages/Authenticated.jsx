@@ -7,6 +7,7 @@ import useAuth from "../../useAuth";
 export default function Authenticated({ code }) {
   const [currentPage, setCurrentPage] = useState("home");
   const [currentPlaylistId, setCurrentPlaylistId] = useState("");
+  const [playlistDetail, setPlaylistDetail] = useState({});
   const [homePagination, setHomePagination] = useState(0);
 
   const accessToken = useAuth(code);
@@ -39,6 +40,45 @@ export default function Authenticated({ code }) {
   function goToHome() {
     setCurrentPage("home");
     setCurrentPlaylistId("");
+    setPlaylistDetail({});
+  }
+
+  function fetchPlaylist() {
+    if (!accessToken) return;
+
+    console.log("fetching");
+    axios
+      .get(`https://api.spotify.com/v1/playlists/${currentPlaylistId}`, {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: "Bearer " + accessToken,
+        },
+      })
+      .then((res) => {
+        console.log(res.data);
+        setPlaylistDetail(res.data);
+      })
+      .catch((err) => console.log(err));
+  }
+
+  function handleDelete(trackId) {
+    console.log("deleting" + trackId);
+    axios
+      .delete(
+        `https://api.spotify.com/v1/playlists/${currentPlaylistId}/tracks`,
+        {
+          headers: {
+            Authorization: "Bearer " + accessToken,
+            "Content-Type": "application/json",
+          },
+          data: { tracks: [{ uri: trackId }] },
+        }
+      )
+      .then((res) => {
+        console.log(res.data);
+        fetchPlaylist();
+      })
+      .catch((err) => console.log(err));
   }
 
   return (
@@ -50,6 +90,10 @@ export default function Authenticated({ code }) {
         <PlaylistDetails
           currentPlaylistId={currentPlaylistId}
           goToHome={goToHome}
+          accessToken={accessToken}
+          fetchPlaylist={fetchPlaylist}
+          currentPlaylist={playlistDetail}
+          handleDelete={handleDelete}
         />
       )}
     </div>

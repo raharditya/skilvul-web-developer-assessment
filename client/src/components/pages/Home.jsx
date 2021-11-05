@@ -4,11 +4,17 @@ import useAuth from "../../useAuth";
 import PlaylistItem from "../PlaylistItem";
 
 export default function Home({ userPlaylists, goToPlaylist }) {
-  return (
-    <div className="md:container md:mx-auto px-6">
-      <h1 className="py-6 text-xl font-semibold">Spotify Playlist Manager</h1>
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
 
-      <div className="md:flex md:items-start mt-4 gap-8">
+  return (
+    <div className="bg-gray-100">
+      <h1 className="md:container md:mx-auto px-6 py-6 text-xl font-semibold">
+        Spotify Playlist Manager
+      </h1>
+
+      <div className="md:container md:mx-auto px-6 md:flex md:items-start mt-4 gap-8">
         <main className="w-4/6">
           <div className="flex items-center justify-between">
             <h2>My playlists</h2>
@@ -58,7 +64,7 @@ export default function Home({ userPlaylists, goToPlaylist }) {
             </div>
           </div>
 
-          <div className="mt-8">
+          {/* <div className="mt-8">
             <h3 className="text-white font-semibold text-lg mb-2">
               Recently played:
             </h3>
@@ -74,7 +80,7 @@ export default function Home({ userPlaylists, goToPlaylist }) {
                 <p className="text-sm">Foals · Total Life Forever</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </aside>
       </div>
     </div>
