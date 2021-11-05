@@ -1,12 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import profile from "../../assets/profile.jpg";
 import useAuth from "../../useAuth";
+import PlaylistItem from "../PlaylistItem";
 
-export default function Home({ code }) {
-  const accessToken = useAuth(code);
-
-  console.log(accessToken);
-
+export default function Home({ userPlaylists, goToPlaylist }) {
   return (
     <div className="md:container md:mx-auto px-6">
       <h1 className="py-6 text-xl font-semibold">Spotify Playlist Manager</h1>
@@ -22,58 +19,29 @@ export default function Home({ code }) {
           </div>
 
           <div className="grid grid-cols-3 gap-6 my-6">
-            <div className="bg-white border rounded-2xl shadow-lg p-4">
-              <img
-                src="https://m.media-amazon.com/images/I/61hw9WloObL._SL1500_.jpg"
-                alt=""
-                className="w-full rounded-xl"
-              />
-              <div className="p-3">
-                <h3 className="font-semibold text-lg mb-2">
-                  that kind of vibe
-                </h3>
-                <p className="text-sm">Raharditya</p>
-              </div>
-            </div>
-            <div className="bg-white border rounded-2xl shadow-lg p-4">
-              <img
-                src="https://m.media-amazon.com/images/I/61hw9WloObL._SL1500_.jpg"
-                alt=""
-                className="w-full rounded-xl"
-              />
-              <div className="p-3">
-                <h3 className="font-semibold text-lg mb-2">
-                  that kind of vibe
-                </h3>
-                <p className="text-sm">Raharditya</p>
-              </div>
-            </div>
-            <div className="bg-white border rounded-2xl shadow-lg p-4">
-              <img
-                src="https://m.media-amazon.com/images/I/61hw9WloObL._SL1500_.jpg"
-                alt=""
-                className="w-full rounded-xl"
-              />
-              <div className="p-3">
-                <h3 className="font-semibold text-lg mb-2">
-                  Some Name That is Extremely Long A...
-                </h3>
-                <p className="text-sm">Raharditya</p>
-              </div>
-            </div>
-            <div className="bg-white border rounded-2xl shadow-lg p-4">
-              <img
-                src="https://m.media-amazon.com/images/I/61hw9WloObL._SL1500_.jpg"
-                alt=""
-                className="w-full rounded-xl"
-              />
-              <div className="p-3">
-                <h3 className="font-semibold text-lg mb-2">
-                  Some Name That is Extremely Long A...
-                </h3>
-                <p className="text-sm">Raharditya</p>
-              </div>
-            </div>
+            {userPlaylists ? (
+              userPlaylists.length === 0 ? (
+                "You don't have any playlists"
+              ) : (
+                userPlaylists.map((playlist, index) => (
+                  <PlaylistItem
+                    key={index * 100}
+                    goToPlaylist={goToPlaylist}
+                    imgUrl={playlist.images[0]?.url || ""}
+                    name={playlist.name}
+                    creator={playlist.owner.display_name}
+                    id={playlist.id}
+                  />
+                ))
+              )
+            ) : (
+              <>
+                <PlaylistItem />
+                <PlaylistItem />
+                <PlaylistItem />
+                <PlaylistItem />
+              </>
+            )}
           </div>
         </main>
 

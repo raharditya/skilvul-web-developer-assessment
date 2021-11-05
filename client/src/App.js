@@ -1,7 +1,8 @@
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./components/pages/Home";
 import Login from "./components/pages/Login";
-import Playlist from "./components/pages/Playlist";
+import Playlist from "./components/pages/PlaylistDetails";
+import "react-loading-skeleton/dist/skeleton.css";
 
 function App() {
   return (

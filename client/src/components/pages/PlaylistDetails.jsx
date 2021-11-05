@@ -6,15 +6,16 @@ import { ReactComponent as Songs } from "../../assets/songs.svg";
 import { ReactComponent as Time } from "../../assets/time.svg";
 import { ReactComponent as Delete } from "../../assets/delete.svg";
 
-export default function Playlist() {
+export default function PlaylistDetails({ goToHome }) {
   return (
     <div className="md:container md:mx-auto p-6">
       <div className="mb-6">
-        <Link to="/home">
-          <div className="flex items-center gap-3 py-4 px-6 rounded-3xl border shadow-lg">
-            <Back /> Back
-          </div>
-        </Link>
+        <div
+          className="flex items-center gap-3 py-4 px-6 rounded-3xl border shadow-lg cursor-pointer"
+          onClick={goToHome}
+        >
+          <Back /> Back
+        </div>
       </div>
 
       <div className="md:flex md:items-start gap-8">
