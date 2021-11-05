@@ -1,8 +1,5 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
-import axios from "axios";
-import { Link } from "react-router-dom";
-import profile from "../../assets/profile.jpg";
 import { ReactComponent as Back } from "../../assets/back-arrow.svg";
 import { ReactComponent as Songs } from "../../assets/songs.svg";
 import { ReactComponent as Time } from "../../assets/time.svg";
@@ -10,18 +7,15 @@ import DetailItem from "../DetailItem";
 
 export default function PlaylistDetails({
   goToHome,
-  accessToken,
   currentPlaylistId,
   fetchPlaylist,
   currentPlaylist,
   handleDelete,
 }) {
-  console.log(currentPlaylist);
-
   useEffect(() => {
     window.scrollTo(0, 0);
     fetchPlaylist();
-  }, [currentPlaylistId]);
+  }, [currentPlaylistId, fetchPlaylist]);
 
   return (
     <div className="p-6 bg-gray-100">

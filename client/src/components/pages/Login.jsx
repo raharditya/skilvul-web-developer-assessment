@@ -1,9 +1,8 @@
 import React from "react";
 import Authenticated from "./Authenticated";
-import Home from "./Home";
+import { ReactComponent as Spotify } from "../../assets/spotify.svg";
 
 const code = new URLSearchParams(window.location.search).get("code");
-console.log(code);
 
 export default function Login() {
   const AUTH_URL =
@@ -20,8 +19,9 @@ export default function Login() {
 
         <a
           href={AUTH_URL}
-          className="rounded-full bg-green-500 text-white py-2 px-8"
+          className="rounded-full bg-green-500 hover:bg-green-600 transition text-white py-3 px-4 flex items-center gap-4"
         >
+          <Spotify />
           Log in with Spotify
         </a>
       </div>

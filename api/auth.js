@@ -21,8 +21,6 @@ Router.post("/", (req, res) => {
       },
     })
     .then((postRes) => {
-      console.log(`statusCode: ${postRes.statusCode}`);
-      console.log(postRes);
       res.json(postRes.data);
     })
     .catch((error) => {

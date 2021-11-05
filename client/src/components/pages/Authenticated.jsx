@@ -13,8 +13,6 @@ export default function Authenticated({ code }) {
 
   const accessToken = useAuth(code);
 
-  console.log(accessToken);
-
   const [userPlaylists, setUserPlaylists] = useState();
 
   useEffect(() => {
@@ -27,7 +25,6 @@ export default function Authenticated({ code }) {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setUserPlaylists(res.data.items);
       })
       .catch((err) => console.log(err));
@@ -62,7 +59,6 @@ export default function Authenticated({ code }) {
   function fetchPlaylist() {
     if (!accessToken) return;
 
-    console.log("fetching");
     axios
       .get(`https://api.spotify.com/v1/playlists/${currentPlaylistId}`, {
         headers: {
@@ -71,7 +67,6 @@ export default function Authenticated({ code }) {
         },
       })
       .then((res) => {
-        console.log(res.data);
         setPlaylistDetail(res.data);
       })
       .catch((err) => console.log(err));
